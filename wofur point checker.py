@@ -13,3 +13,10 @@ def leftclick (X , Y, lc = 1, spd = -1):
 ## back to the scheduled program
 leftclick(282, 83)
 pag.typewrite("https://www.roblox.com/games/2727067538/2X-World-Zero-Anime-RPG")
+pag.hotkey("enter")
+time.sleep(5)
+leftclick(1432, 618)
+time.sleep(20)
+leftclick(962, 920)
+time.sleep(35)
+
