@@ -11,6 +11,7 @@ import PIL
 import pygetwindow as pgw
 import mss 
 import mss.tools
+from PIL import ImageGrab
 
 
 ## begin the fuckery (for a second time)
@@ -26,9 +27,6 @@ def leftclick (X , Y, lc = 1, spd = -1):
 ## for image writing bs
 ssfolder = "C:/projects/pointchecker/Images"
 path = os.path.join(ssfolder, "screenshot.png")
-region = (1123, 212, 1686, 648)
-screenshot = pag.screenshot(region = region )
-window_name = "RobloxPlayerBeta.exe"
 
 
 
@@ -50,5 +48,17 @@ time.sleep(10)
 ##open cv time YIPPE
 
 # gets window to read and hopefully screenshot
+window = pgw.getWindowsWithTitle("Roblox")[0]
+##x,y coords
+left, top, right, bottom = window.left, window.top, window.right, window.bottom
 
+capture_x1 = left + 1130
+capture_y1 = top + 226
+capture_x2 = left + 1500
+capture_y2 = top + 649
 
+screenshot = ImageGrab.grab(bbox=(left, top, right, bottom))
+## cropped ver
+cropped_screenshot = screenshot.crop((capture_x1, capture_y1, capture_x2, capture_y2))
+
+cropped_screenshot.save(path)
