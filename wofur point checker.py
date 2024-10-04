@@ -9,6 +9,9 @@ import pytesseract as pyt
 import os
 import PIL
 import pygetwindow as pgw
+import mss 
+import mss.tools
+
 
 ## begin the fuckery (for a second time)
 pag.hotkey("ctrl" , "win" , "right")
@@ -25,8 +28,7 @@ ssfolder = "C:/projects/pointchecker/Images"
 path = os.path.join(ssfolder, "screenshot.png")
 region = (1123, 212, 1686, 648)
 screenshot = pag.screenshot(region = region )
-window_name = "Roblox"
-window = pgw.getWindowsWithTitle(window_name)
+window_name = "RobloxPlayerBeta.exe"
 
 
 
@@ -46,8 +48,7 @@ time.sleep(35)
 AI.send("L")
 time.sleep(10)
 ##open cv time YIPPE
-if window:
-    window = window[0]
-    window.activate()
-screenshot.save(path)
+
+# gets window to read and hopefully screenshot
+
 
