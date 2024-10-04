@@ -5,6 +5,7 @@ import pyautogui as pag
 import autoit as AI
 import ait
 import cv2 as ocv
+import pytesseract as pyt 
 ## begin the fuckery (for a second time)
 pag.hotkey("ctrl" , "win" , "right")
 AO.open("brave")
