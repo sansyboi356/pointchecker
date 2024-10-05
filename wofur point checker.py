@@ -21,7 +21,9 @@ time.sleep(1)
 
 ## variables and whatnot
 ssfolder = "C:/projects/pointchecker/Images"
-path = os.path.join(ssfolder, "screenshot.png")
+path1 = os.path.join(ssfolder , "screenshot1.png")
+path2 = os.path.join(ssfolder , "screenshot2.png")
+path3 = os.path.join(ssfolder , "screenshot3.png")
 
 
 # Mouse click helper function
@@ -41,6 +43,9 @@ leftclick(1432, 618)
 time.sleep(20)
 
 # Search for the play button image on the screen
+position = imagesearch("C:/projects/pointchecker/screen finder/playbutton.png")
+
+## finds the play button and if it doesnt find it retries
 while True:
     position = imagesearch("C:/projects/pointchecker/screen finder/playbutton.png")
     
@@ -52,6 +57,8 @@ while True:
     else:
         print("Image not found, retrying in 2 seconds...")
         time.sleep(2)  # Wait 2 seconds before retrying
+        
+time.sleep(35)
 
 ##ok we have roblox open, now we go to open the guild menu
 AI.send("L")
@@ -71,5 +78,5 @@ capture_y2 = top + 649
 screenshot = ImageGrab.grab(bbox=(left, top, right, bottom))
 ## cropped ver
 cropped_screenshot = screenshot.crop((capture_x1, capture_y1, capture_x2, capture_y2))
-
-cropped_screenshot.save(path)
+## first screenshot acquired
+cropped_screenshot.save(path1)
