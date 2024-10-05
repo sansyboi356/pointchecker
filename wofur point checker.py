@@ -12,37 +12,47 @@ import pygetwindow as pgw
 import mss 
 import mss.tools
 from PIL import ImageGrab
-
-
+import python_imagesearch 
+from python_imagesearch.imagesearch import imagesearch
 ## begin the fuckery (for a second time)
-pag.hotkey("ctrl" , "win" , "right")
+pag.hotkey("ctrl", "win", "right")
 AO.open("brave")
 time.sleep(1)
-## defines
 
-## so I dont have to write it over and over
-def leftclick (X , Y, lc = 1, spd = -1):
-    AI.mouse_click(x = X, y = Y, clicks = lc, speed = spd)
-
-## for image writing bs
+## variables and whatnot
 ssfolder = "C:/projects/pointchecker/Images"
 path = os.path.join(ssfolder, "screenshot.png")
 
 
+# Mouse click helper function
+def leftclick(X, Y, lc=1, spd=-1):
+    AI.mouse_click(x=X, y=Y, clicks=lc, speed=spd)
 
-## back to the scheduled program
-leftclick(1821 , 69)
+# Navigate to the game URL
+leftclick(1821, 69)
+time.sleep(.5)
 leftclick(282, 83)
-## game website
 pag.typewrite("https://www.roblox.com/games/2727067538/2X-World-Zero-Anime-RPG")
 pag.hotkey("enter")
 time.sleep(5)
-## clicks play
+
+# Click 'Play' button
 leftclick(1432, 618)
 time.sleep(20)
-## clicks play (with intent)
-leftclick(962, 920)
-time.sleep(35)
+
+# Search for the play button image on the screen
+while True:
+    position = imagesearch("C:/projects/pointchecker/screen finder/playbutton.png")
+    
+    # If image is found, click and break the loop
+    if position[0] != -1:
+        print(f"Image found at {position}. Clicking now...")
+        leftclick(position[0], position[1])
+        break
+    else:
+        print("Image not found, retrying in 2 seconds...")
+        time.sleep(2)  # Wait 2 seconds before retrying
+
 ##ok we have roblox open, now we go to open the guild menu
 AI.send("L")
 time.sleep(10)
