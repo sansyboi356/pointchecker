@@ -31,6 +31,7 @@ path = os.path.join(ssfolder, "screenshot.png")
 
 
 ## back to the scheduled program
+leftclick(1821 , 69)
 leftclick(282, 83)
 ## game website
 pag.typewrite("https://www.roblox.com/games/2727067538/2X-World-Zero-Anime-RPG")
