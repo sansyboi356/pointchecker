@@ -80,3 +80,5 @@ screenshot = ImageGrab.grab(bbox=(left, top, right, bottom))
 cropped_screenshot = screenshot.crop((capture_x1, capture_y1, capture_x2, capture_y2))
 ## first screenshot acquired
 cropped_screenshot.save(path1)
+time.sleep(2)
+
