@@ -4,22 +4,24 @@ import pyautogui as pag
 import autoit as AI
 import os
 from PIL import ImageGrab
+import pytesseract  # Import for OCR
+import re  # Import for cleaning the extracted text
 import python_imagesearch
 from python_imagesearch.imagesearch import imagesearch
 import pygetwindow as pgw
 
-## begin the program
+# Begin the program
 pag.hotkey("ctrl", "win", "right")
 AO.open("brave")
 time.sleep(1)
 
-## variables and paths
+# Variables and paths
 ssfolder = "C:/projects/pointchecker/Images"
 path1 = os.path.join(ssfolder , "screenshot1.png")
 path2 = os.path.join(ssfolder , "screenshot2.png")
 path3 = os.path.join(ssfolder , "screenshot3.png")
 path4 = os.path.join(ssfolder , "screenshot4.png")
-path5 = os.path.join(ssfolder , "screenshot5.png")
+path5 = os.path.join(ssfolder , "screenshot5.png")  # 5th screenshot path
 
 # Mouse click helper function
 def leftclick(X, Y, lc=1, spd=-1):
@@ -36,6 +38,7 @@ time.sleep(5)
 # Click 'Play' button
 leftclick(1432, 618)
 time.sleep(20)
+leftclick(1445, 123)
 
 # Retry mechanism for finding and clicking the play button image
 while True:
@@ -51,7 +54,7 @@ while True:
         
 time.sleep(35)
 
-## Open the guild menu
+# Open the guild menu
 AI.send("L")
 time.sleep(10)
 
@@ -65,7 +68,7 @@ capture_y1 = top + 226
 capture_x2 = left + 1500
 capture_y2 = top + 670
 
-# Function to capture and save the cropped screenshot, then scroll down
+# Function to capture and save a cropped screenshot, then scroll down
 def capture_and_scroll(path):
     # Take a new screenshot of the Roblox window
     screenshot = ImageGrab.grab(bbox=(left, top, right, bottom))
@@ -80,20 +83,41 @@ def capture_and_scroll(path):
     AI.mouse_wheel("down", clicks=3)
     time.sleep(2)  # Give some time for the screen to update
 
-# leftclick to get onto the list
+# Define coordinates where "50/50" should appear (adjust these as needed)
+text_capture_x1 = left + 1130
+text_capture_y1 = top + 600
+text_capture_x2 = left + 1300
+text_capture_y2 = top + 650
+
+# Function to check for "50/50" text using OCR
+def check_for_text():
+    # Capture the area where "50/50" text should appear
+    text_screenshot = ImageGrab.grab(bbox=(text_capture_x1, text_capture_y1, text_capture_x2, text_capture_y2))
+    
+    # Use OCR to extract the text from the screenshot
+    extracted_text = pytesseract.image_to_string(text_screenshot)
+    
+    # Strip everything except digits and slashes
+    clean_text = re.sub(r'[^\d/]', '', extracted_text)
+    
+    print(f"Extracted text (cleaned): {clean_text}")
+    
+    # Check if the cleaned text contains "50/50"
+    return "50/50" in clean_text
+
+# Click to get onto the list
 leftclick(1479, 413)
 
-# Capture and save the first screenshot
+# Capture and save the first four screenshots
 capture_and_scroll(path1)
-
-# Capture and save the second screenshot after scrolling
 capture_and_scroll(path2)
-
-# Capture and save the third screenshot after scrolling
 capture_and_scroll(path3)
-
-# Capture and save the fourth screenshot after scrolling
 capture_and_scroll(path4)
 
-# Capture and save the fith screenshot after scrolling
-capture_and_scroll(path5)
+# Check if "50/50" is present before taking the 5th screenshot
+if check_for_text():
+    print("50/50 found, capturing the 5th screenshot.")
+    capture_and_scroll(path5)
+else:
+    print("50/50 not found, skipping the 5th screenshot.")
+
