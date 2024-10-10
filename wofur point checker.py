@@ -131,4 +131,5 @@ if check_for_text():
     capture_and_scroll(path5)
 else:
     print("50/50 not found, skipping the 5th screenshot.")
+    
 
