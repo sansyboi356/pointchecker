@@ -68,8 +68,8 @@ left, top, right, bottom = window.left, window.top, window.right, window.bottom
 # Define coordinates for the cropped area
 capture_x1 = left + 1130
 capture_y1 = top + 226
-capture_x2 = left + 1500
-capture_y2 = top + 670
+capture_x2 = left + 1516
+capture_y2 = top + 675
 
 # Function to capture and save a cropped screenshot, then scroll down
 def capture_and_scroll(path):
@@ -83,7 +83,7 @@ def capture_and_scroll(path):
     cropped_screenshot.save(path)
     
     # Scroll down
-    AI.mouse_wheel("down", clicks=3)
+    AI.mouse_wheel("down", clicks = 2)
     time.sleep(2)  # Give some time for the screen to update
 
 # Define coordinates where "50/50" should appear (adjust these as needed)
@@ -98,7 +98,7 @@ def check_for_text():
     text_screenshot = ImageGrab.grab(bbox=(text_capture_x1, text_capture_y1, text_capture_x2, text_capture_y2))
     
     # Use OCR to extract the text from the screenshot
-    extracted_text = pytesseract.image_to_string(text_screenshot, lang='jpn')
+    extracted_text = pytesseract.image_to_string(text_screenshot, lang='eng')
     
     # Strip everything except digits and slashes
     clean_text = re.sub(r'[^\d/]', '', extracted_text)
@@ -129,7 +129,7 @@ def extract_text_to_file(paths, text_file):
     with open(text_file, 'w', encoding='utf-8') as f:  # Specify utf-8 encoding
         for path in paths:
             # Use OCR to extract the text from the screenshot
-            extracted_text = pytesseract.image_to_string(path, lang='jpn')  # Ensure you're using the correct path
+            extracted_text = pytesseract.image_to_string(path, lang='eng+jpn')  # Ensure you're using the correct path
             f.write(extracted_text + "\n")  # Write the extracted text to the file
 
 # List of paths for all screenshots
